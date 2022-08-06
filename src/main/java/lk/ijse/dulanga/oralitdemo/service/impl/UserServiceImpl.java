@@ -4,15 +4,18 @@ import lk.ijse.dulanga.oralitdemo.dto.UserDTO;
 import lk.ijse.dulanga.oralitdemo.reprsitory.UserRepository;
 import lk.ijse.dulanga.oralitdemo.service.UserService;
 import lk.ijse.dulanga.oralitdemo.service.exception.DuplicateException;
+import lk.ijse.dulanga.oralitdemo.service.util.EntityDTOTransformer;
 
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private EntityDTOTransformer entityDTOTransformer;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, EntityDTOTransformer entityDTOTransformer) {
         this.userRepository = userRepository;
+        this.entityDTOTransformer = entityDTOTransformer;
     }
 
     @Override
