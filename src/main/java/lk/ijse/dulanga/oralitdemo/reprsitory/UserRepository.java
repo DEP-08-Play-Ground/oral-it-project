@@ -5,8 +5,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface UserRepository extends CrudRepository<User,String> {
-    boolean existsUserByEmailAndMobileNO(String email,String mobileNO);
+public interface UserRepository extends CrudRepository<User, String> {
+    boolean existsUserByEmailAndMobileNO(String email, String mobileNO);
 
-    List<User> getAllUsers();
+    List<User> findAll();
 }
