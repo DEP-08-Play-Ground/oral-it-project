@@ -3,7 +3,9 @@ package lk.ijse.dulanga.oralitdemo.service.util;
 import lk.ijse.dulanga.oralitdemo.dto.UserDTO;
 import lk.ijse.dulanga.oralitdemo.entity.User;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EntityDTOTransformer {
     private final ModelMapper modelMapper;
 
