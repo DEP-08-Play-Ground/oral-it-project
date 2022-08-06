@@ -15,16 +15,19 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
-    private EntityDTOTransformer entityDTOTransformer;
+    private EntityDTOTransformer transformer;
 
-    public UserServiceImpl(UserRepository userRepository, EntityDTOTransformer entityDTOTransformer) {
+    public UserServiceImpl(UserRepository userRepository, EntityDTOTransformer transformer) {
         this.userRepository = userRepository;
-        this.entityDTOTransformer = entityDTOTransformer;
+        this.transformer = transformer;
     }
 
     @Override
     public UserDTO registerUser(UserDTO user) throws DuplicateException {
-        return null;
+        if (userRepository.existsUserByEmailAndMobileNO(user.getEmail(),user.getMobileNO())){
+            throw new DuplicateException("User already Exists");
+        }
+        return transformer.getUserDTO(userRepository.save(transformer.getUserEntity(user)));
     }
 
     @Override
