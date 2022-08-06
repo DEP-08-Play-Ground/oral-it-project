@@ -1,6 +1,7 @@
 package lk.ijse.dulanga.oralitdemo.service.impl;
 
 import lk.ijse.dulanga.oralitdemo.dto.UserDTO;
+import lk.ijse.dulanga.oralitdemo.entity.User;
 import lk.ijse.dulanga.oralitdemo.reprsitory.UserRepository;
 import lk.ijse.dulanga.oralitdemo.service.UserService;
 import lk.ijse.dulanga.oralitdemo.service.exception.DuplicateException;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -24,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO registerUser(UserDTO user) throws DuplicateException {
-        if (userRepository.existsUserByEmailAndMobileNO(user.getEmail(),user.getMobileNO())){
+        if (userRepository.existsUserByEmailAndMobileNO(user.getEmail(), user.getMobileNO())) {
             throw new DuplicateException("User already Exists");
         }
         return transformer.getUserDTO(userRepository.save(transformer.getUserEntity(user)));
@@ -32,6 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> listAllUsers() {
-        return null;
+        List<User> allUsers = userRepository.getAllUsers();
+        return allUsers.stream().map(user -> transformer.getUserDTO(user)).collect(Collectors.toList());
     }
 }
